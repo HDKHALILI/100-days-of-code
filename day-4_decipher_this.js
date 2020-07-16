@@ -24,18 +24,31 @@
 //   - the second and last letters are switched
 
 // Code
+function replaceCodeWithChar(word) {
+  let charCode = parseInt(word, 10);
+  return word.replace(charCode, String.fromCharCode(charCode));
+}
+
+function switchIndexValues(word, firstIndex, secondIndex) {
+  return word = word.split('').map((char, index) => {
+    if (index === firstIndex) {
+      return word[secondIndex]
+    } else if (index === secondIndex) {
+      // for one char word returning 'char' as word[firstIndex] is undefined
+      return word[firstIndex] || char;
+    }
+
+    return char;
+  }).join('');
+}
 
 function decipherThis(str) {
   let deciphered = [];
   str.split(' ').forEach(word => {
-    let charCode = parseInt(word, 10);
-    word = String.fromCharCode(charCode) + word.replace(/[0-9]/g, '');
-    word = word.split('');
-    let secondChar = word[1];
-    let lastChar = word[word.length - 1];
-    word.splice(1, 1, lastChar);
-    word.splice(word.length - 1, 1, secondChar);
-    deciphered.push(word.join(''));
+    word = replaceCodeWithChar(word);
+    word = switchIndexValues(word, 1, word.length - 1);
+
+    deciphered.push(word);
   });
 
   return deciphered.join(' ');
