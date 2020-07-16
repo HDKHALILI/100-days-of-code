@@ -26,5 +26,18 @@ function maxSequence(arr) {
   return maxSumOfSubarray;
 }
 
+// Kadane's Algorithm implementation
+function maxSequenceBetter(arr) {
+  let maxSum = 0;
+  let currentSum = 0;
+  for (let index = 0; index < arr.length; index += 1) {
+    currentSum = Math.max(arr[index], currentSum + arr[index]);
+    maxSum = Math.max(maxSum, currentSum);
+  }
+
+  return maxSum;
+}
 console.log(maxSequence([-2, 1, -3, 4, -1, 2, 1, -5, 4]));
+console.log(maxSequenceBetter([-2, 1, -3, 4, -1, 2, 1, -5, 4]));
 // should be 6: [4, -1, 2, 1]
+console.log(maxSequenceBetter([7, 4, 11, -11, 39, 36, 10, -6, 37, -10, -32, 44, -26, -34, 43, 43]));
