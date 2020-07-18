@@ -44,7 +44,6 @@
 
 // if the given string is "" you will return ""
 
-
 // Understanding the Problem:
 // Input: string containing hours|minutes|seconds
 // Output: string
@@ -88,28 +87,30 @@
 //    - seconds = fraction of the minute * 60
 
 // Code
+const SECONDS_IN_MINUTE = 60;
+const SECONDS_IN_HOUR = SECONDS_IN_MINUTE * 60;
+
 function stat(strg) {
-  if (strg === '') return '';
+  if (strg === "") return "";
 
-  let timeInMinutes = strg.split(',').map(time => {
-    return convertToSeconds(time);
-  });
-  let range = getRange(timeInMinutes);
-  let average = getAverage(timeInMinutes);
-  let median = getMedian(timeInMinutes);
+  let timeInSeconds = convertToSeconds(strg);
 
-  return `Range: ${formateTime(range)} Average: ${formateTime(average)} Median: ${formateTime(median)}`;
+  let range = formateTime(getRange(timeInSeconds));
+  let average = formateTime(getAverage(timeInSeconds));
+  let median = formateTime(getMedian(timeInSeconds));
+
+  return `Range: ${range} Average: ${average} Median: ${median}`;
 }
 
-function convertToSeconds(time) {
-  let [hours, minutes, seconds] = time.trim().split('|').map(val => Number(val));
-  return (hours * 3600) + (minutes * 60) + seconds;
+function convertToSeconds(string) {
+  return string.split(",").map((time) => {
+    let [hours, minutes, seconds] = time.split("|").map((val) => Number(val));
+    return hours * SECONDS_IN_HOUR + minutes * SECONDS_IN_MINUTE + seconds;
+  });
 }
 
 function getRange(array) {
-  let lowest = Math.min(...array);
-  let highest = Math.max(...array);
-  return highest - lowest;
+  return Math.max(...array) - Math.min(...array);
 }
 
 function getAverage(array) {
@@ -119,22 +120,27 @@ function getAverage(array) {
 function getMedian(array) {
   array = array.slice().sort((a, b) => a - b);
   let length = array.length;
-  let middle = (length - 1) / 2;
-
   if (length % 2 === 1) {
-    return array[middle];
+    let middleIndex = Math.floor(length / 2);
+    return array[middleIndex];
   }
 
   let left = length / 2 - 1;
   return array.slice(left, left + 2).reduce((sum, num) => sum + num) / 2;
 }
 
-function formateTime(time) {
-  let hours = Math.floor(time / 3600);
-  let minutes = Math.floor(time / 60) % 60;
-  let seconds = Math.floor(time % 3600 % 60);
+function formateTime(timeInSeconds) {
+  let hours = Math.floor(timeInSeconds / SECONDS_IN_HOUR);
+  let minutes = Math.floor(
+    (timeInSeconds % SECONDS_IN_HOUR) / SECONDS_IN_MINUTE
+  );
+  let seconds = Math.floor(
+    (timeInSeconds % SECONDS_IN_HOUR) % SECONDS_IN_MINUTE
+  );
 
-  return `${leadingZero(hours)}|${leadingZero(minutes)}|${leadingZero(seconds)}`;
+  return `${leadingZero(hours)}|${leadingZero(minutes)}|${leadingZero(
+    seconds
+  )}`;
 }
 
 function leadingZero(num) {
@@ -142,5 +148,9 @@ function leadingZero(num) {
 }
 console.log(stat("01|15|59, 1|47|16, 01|17|20, 1|32|34, 2|17|17"));
 // "Range: 01|01|18 Average: 01|38|05 Median: 01|32|34"
-console.log(stat("11|15|59, 10|16|16, 12|17|20, 9|22|34, 13|19|34, 11|15|17, 11|22|00, 10|26|37, 12|17|48, 9|16|30, 12|20|14, 11|25|11"));
+console.log(
+  stat(
+    "11|15|59, 10|16|16, 12|17|20, 9|22|34, 13|19|34, 11|15|17, 11|22|00, 10|26|37, 12|17|48, 9|16|30, 12|20|14, 11|25|11"
+  )
+);
 // 'Range: 04|03|04 Average: 11|14|36 Median: 11|18|59
