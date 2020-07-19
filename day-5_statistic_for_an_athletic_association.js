@@ -94,7 +94,6 @@ function stat(strg) {
   if (strg === "") return "";
 
   let timeInSeconds = convertToSeconds(strg);
-
   let range = formateTime(getRange(timeInSeconds));
   let average = formateTime(getAverage(timeInSeconds));
   let median = formateTime(getMedian(timeInSeconds));
