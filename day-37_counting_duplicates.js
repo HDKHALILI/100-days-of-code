@@ -43,6 +43,8 @@ function duplicateCount2(text) {
     .toLowerCase()
     .split("")
     .filter((char, index, chars) => {
+      // if one of same letter both indexOf and lastIndexOf
+      // returns the same index
       return chars.indexOf(char) === index && chars.lastIndexOf(char) !== index;
     }).length;
 }
