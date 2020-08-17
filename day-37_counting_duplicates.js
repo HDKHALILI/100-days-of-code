@@ -38,9 +38,24 @@ function duplicateCount(text) {
   return allDuplicates.length;
 }
 
+function duplicateCount2(text) {
+  return text
+    .toLowerCase()
+    .split("")
+    .filter((char, index, chars) => {
+      return chars.indexOf(char) === index && chars.lastIndexOf(char) !== index;
+    }).length;
+}
+
+// console.log(duplicateCount("")); // 0;
+// console.log(duplicateCount("abcde")); // 0)
+// console.log(duplicateCount("aabbcde")); //  2)
+// console.log(duplicateCount("aabBcde")); // 2"should ignore case";
+// console.log(duplicateCount("Indivisibility")); //  1
+// console.log(duplicateCount("Indivisibilities")); //  2 "characters may not be adjacent"
 console.log(duplicateCount("")); // 0;
-console.log(duplicateCount("abcde")); // 0)
-console.log(duplicateCount("aabbcde")); //  2)
-console.log(duplicateCount("aabBcde")); // 2"should ignore case";
-console.log(duplicateCount("Indivisibility")); //  1
-console.log(duplicateCount("Indivisibilities")); //  2 "characters may not be adjacent"
+console.log(duplicateCount2("abcde")); // 0)
+console.log(duplicateCount2("aabbcde")); //  2)
+console.log(duplicateCount2("aabBcde")); // 2"should ignore case";
+console.log(duplicateCount2("Indivisibility")); //  1
+console.log(duplicateCount2("Indivisibilities")); //  2 "characters may not be adjacent"
