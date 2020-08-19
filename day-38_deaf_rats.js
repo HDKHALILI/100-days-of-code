@@ -49,9 +49,53 @@ function sliceInPairs(string) {
   return pairs;
 }
 
-// console.log(sliceInPairs("O~~OO~~OO~~OO~ P~OO~~OO~~OO~~O"));
+function countDeafRats2(town) {
+  town = removeAllSpaces(town);
+  let thePPIndex = town.indexOf("P");
+  let ratsBeforeThePP = town.slice(0, thePPIndex);
+  let ratsAfterThePP = town.slice(thePPIndex + 1);
+  let deafRatsCount = 0;
 
-console.log(countDeafRats("O~~OO~~OO~~OO~ P~OO~~OO~~OO~~O"));
+  for (let index = 0; index < ratsBeforeThePP.length; index += 2) {
+    if (ratsBeforeThePP[index + 1] === `~`) {
+      deafRatsCount += 1;
+    }
+  }
 
-console.log(countDeafRats("~O~O~O~OP~O~OO~"));
-console.log(countDeafRats("P O~ O~ ~O O~"));
+  for (let index = 0; index < ratsAfterThePP.length; index += 2) {
+    if (ratsAfterThePP[index] === "~") {
+      deafRatsCount += 1;
+    }
+  }
+
+  return deafRatsCount;
+}
+
+function countDeafRats3(town) {
+  town = removeAllSpaces(town);
+  let thePPIndex = town.indexOf("P");
+  let deafRatsCount = 0;
+
+  // Deaf rats on the left of The Pied Piper
+  for (let index = 1; index < thePPIndex; index += 2) {
+    if (town[index] === `~`) {
+      deafRatsCount += 1;
+    }
+  }
+
+  // Deaf rats on the right of The Pied Piper
+  for (let index = thePPIndex + 1; index < town.length; index += 2) {
+    if (town[index] === "~") {
+      deafRatsCount += 1;
+    }
+  }
+
+  return deafRatsCount;
+}
+
+// console.log("O~~OO~~OO~~OO~ P~OO~~OO~~OO~~O"));
+
+console.log(countDeafRats("O~~OO~~OO~~OO~ P~OO~~OO~~OO~~O")); // 8
+
+console.log(countDeafRats("~O~O~O~OP~O~OO~")); // 2
+console.log(countDeafRats("P O~ O~ ~O O~")); // 1
