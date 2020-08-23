@@ -39,20 +39,24 @@ function diamond(n) {
   }
   let diam = "";
   let middle = Math.ceil(n / 2);
-  let numOfSpaces = middle - 1;
-  let numOfStars = 1;
+  let spaces = middle - 1;
+  let stars = 1;
   for (let counter = 1; counter <= n; counter += 1) {
-    diam += `${" ".repeat(numOfSpaces)}${"*".repeat(numOfStars)}\n`;
+    diam += line(spaces, stars);
     if (counter >= middle) {
-      numOfSpaces += 1;
-      numOfStars -= 2;
+      spaces += 1;
+      stars -= 2;
     } else {
-      numOfSpaces -= 1;
-      numOfStars += 2;
+      spaces -= 1;
+      stars += 2;
     }
   }
 
   return diam;
+}
+
+function line(spaces, stars) {
+  return `${" ".repeat(spaces)}${"*".repeat(stars)}\n`;
 }
 
 console.log(diamond(5));
