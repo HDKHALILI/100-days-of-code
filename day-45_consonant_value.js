@@ -17,16 +17,16 @@
 // -- The consonant substrings are: "str" and "ngth" with valu
 
 function solve(s) {
-  let alphabets = "abcdefghijklmnopqrstuvwxyz";
   let substrings = s.split(/[aeiou]+/);
-  return Math.max(
-    ...substrings.map((substring) => {
-      return substring
-        .split("")
-        .map((char) => alphabets.indexOf(char) + 1)
-        .reduce((sum, next) => sum + next, 0);
-    })
-  );
+
+  let sumConsonantValues = substrings.map((substring) => {
+    return [...substring].reduce(
+      (sum, char) => sum + char.charCodeAt() - 96,
+      0
+    );
+  });
+
+  return Math.max(...sumConsonantValues);
 }
 
 console.log(solve("zodiac")); // 26
