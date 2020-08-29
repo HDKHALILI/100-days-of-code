@@ -6,3 +6,8 @@
 // should be 7.
 
 // [10, 343445353, 3453445, 3453545353453] should return 3453455.
+
+function sumTwoSmallestNumbers(numbers) {
+  let twoLowestIntegers = numbers.sor((a, b) => a - b).slice(0, 2);
+  return twoLowestIntegers.reduce((sum, num) => sum + num, 0);
+}
