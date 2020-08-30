@@ -21,3 +21,20 @@
 //  - increment ounterCounter by 1
 // - end loop
 // - return table
+
+// Code
+function multiplicationTable(size) {
+  const table = [];
+  for (let outerCounter = 1; outerCounter <= size; outerCounter += 1) {
+    const row = [];
+    for (let innerCounter = 1; innerCounter <= size; innerCounter += 1) {
+      row.push(outerCounter * innerCounter);
+    }
+
+    table.push(row);
+  }
+
+  return table;
+}
+
+console.log(multiplicationTable(3)); // [[1,2,3], [2,4,6], [3,6,9]]
