@@ -9,7 +9,7 @@
 
 // Algorithm:
 // - set an empty table array
-// - set outerCounter to 1
+// - set multiplicand to 1
 // - start a loop that runs n number of times
 //  - set an empty row array
 //  - set innerCounter to 1
@@ -25,10 +25,10 @@
 // Code
 function multiplicationTable(size) {
   const table = [];
-  for (let outerCounter = 1; outerCounter <= size; outerCounter += 1) {
+  for (let multiplicand = 1; multiplicand <= size; multiplicand += 1) {
     const row = [];
-    for (let innerCounter = 1; innerCounter <= size; innerCounter += 1) {
-      row.push(outerCounter * innerCounter);
+    for (let multiplier = 1; multiplier <= size; multiplier += 1) {
+      row.push(multiplicand * multiplier);
     }
 
     table.push(row);
