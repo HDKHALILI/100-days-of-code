@@ -25,3 +25,22 @@
 // Second argument (optional): space-delimited list of minor words that must
 // always be lowercase except for the first word in the string. The JavaScript
 // /CoffeeScript tests will pass undefined when this argument is unused.
+
+function titleCase(title, minorWords) {
+  title = title ? title.toLowerCase().split(" ") : [];
+  minorWords = minorWords ? minorWords.toLowerCase().split(" ") : [];
+
+  return title
+    .map((word, index) => {
+      if (minorWords.includes(word) && index >= 1) {
+        return word;
+      }
+
+      return word[0].toUpperCase() + word.slice(1);
+    })
+    .join(" ");
+}
+
+console.log(titleCase("", ""));
+console.log(titleCase("THE WIND IN THE WILLOWS", "the in"));
+console.log(titleCase("the quick brown fox")); // should return: 'The Quick Brown Fox'
